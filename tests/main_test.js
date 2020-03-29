@@ -1,20 +1,6 @@
 const wdio = require("webdriverio");
 const assert = require('chai').assert;
-
-const opts = {
-    port: 4723,
-    path: "/wd/hub",
-    logLevel: 'debug',
-    capabilities: {
-        platformName: "Android",
-        platformVersion: "9",
-        deviceName: "emulator-5554",
-        appPackage: "com.vbanthia.androidsampleapp",
-        appActivity: ".MainActivity",
-        automationName: "UiAutomator2",
-        //app: "./app/app-debug.apk"
-    }
-};
+const settings = require('./settings');
 
 var driver;
 let fd1, fd2, add, sub, mult, div, rst, res;
@@ -24,7 +10,9 @@ describe('Calculator', function() {
     this.timeout(50000);
 
     before(async function() {
-        driver = await wdio.remote(opts);
+        console.log(settings.opts);
+
+        driver = await wdio.remote(settings.opts);
         await init();
 
     });
