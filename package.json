@@ -1,10 +1,10 @@
 {
-    "name": "Calculator's test",
+    "name": "CalculatorTest",
     "version": "1.0.0",
     "description": "",
-    "main": "arifmetic.js",
+    "main": "main_test.js",
     "scripts": {
-        "test": "mocha ./arifmetic.js"
+        "test": "mocha ./tests/main_test.js"
     },
     "dependencies": {
         "appium": "^1.17.0",
@@ -13,7 +13,6 @@
         "mocha": "^7.1.1",
         "webdriverio": "^6.0.2",
         "wdio": "^4.0.0"
-
     },
     "keywords": [],
     "author": "",
