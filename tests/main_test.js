@@ -1,10 +1,14 @@
 const assert = require('chai').assert;
-const performance = require('perf_hooks');
-const { fd1, fd2, add, sub, mult, div, rst, res, init, tapRst, tapMult, tapSum, setCheckText, validateText, validateTextNotEqual } = require('./elements');
-var { driver } = require('./elements');
+//const performance = require('perf_hooks');
+const performance = require('perf_hooks').performance;
+const { fd1, fd2, add, sub, mult, div, rst, res } = require('./elements');
+var { driver } = require('./elements');;
+var init = require('./elements');
+//tapRst, tapMult, tapSum, setCheckText, validateText,
+var validateTextNotEqual = require('./elements');
 //var driver;
 //let fd1, fd2, add, sub, mult, div, rst, res;
-
+var t0;
 describe('Calculator', function() {
 
     this.timeout(50000);
@@ -12,7 +16,8 @@ describe('Calculator', function() {
     before(async function() {
         //driver = await wdio.remote(opts);
         await init();
-        //var t0 = performance.now();
+        //await require('./elements').init
+        t0 = performance.now();
     });
     beforeEach(async function() {
         await tapRst();
@@ -47,7 +52,7 @@ describe('Calculator', function() {
         await validateText(res, 'Infinity + Infinity = Infinity');
         await tapRst();
     });
-    it.skip('Max value ', async function() {
+    it('Max value ', async function() {
         let v = '111111111111111111111111111111111111111'; // max val
         await setCheckText(fd1, v);
         await setCheckText(fd2, v);
