@@ -16,10 +16,11 @@ Functional (Black Box):
   * неправильные формат воода данных (строка, спец. символы, дробные значения с количеством знаков после запятой более 2)
 
 Instruction
-[setup node and npm]()
-git clone 
-npm install
-npm test
+1. [setup node and npm](https://nodejs.org/en/download/)
+1. Terminal/Shell 
+  1. git clone https://github.com/AntonVTR/CatlulatorTest.git 
+  1. npm install
+  1. npm test
 
 Case desctiption
 
