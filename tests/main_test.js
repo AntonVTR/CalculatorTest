@@ -10,8 +10,6 @@ describe('Calculator', function() {
     this.timeout(50000);
 
     before(async function() {
-        console.log(settings.opts);
-
         driver = await wdio.remote(settings.opts);
         await init();
 
@@ -40,7 +38,7 @@ describe('Calculator', function() {
         await validateText(res, 'Infinity + Infinity = Infinity');
         await tapRst();
     });
-    it.skip('Max value ', async function() {
+    it('Max value ', async function() {
         let v = '111111111111111111111111111111111111111'; // max val
         await setCheckText(fd1, v);
         await setCheckText(fd2, v);
@@ -49,7 +47,7 @@ describe('Calculator', function() {
         await tapRst();
 
     });
-    it.skip('Max result val ', async function() {
+    it('Max result val ', async function() {
         let v = '100000000000000000000'; // max val
         await setCheckText(fd1, v);
         await setCheckText(fd2, v);
