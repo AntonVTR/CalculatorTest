@@ -371,7 +371,7 @@ describe('Calculator', function() {
         await setCheckText(fd1, '33333333333333333333333333.25');
         await setCheckText(fd2, '-2222222222222222222222222');
         await tapSum();
-        await validateText(res, "33333333333333333333333333.25 + -2222222222222222222222222.00 = 1111111111111111111111111.25")
+        await validateText(res, "33333333333333333333333333.25 + -2222222222222222222222222.00 = 31111111111111111111111111.25")
         await tapRst();
     });
     it('summ big field1 Rational positive field2 Rational positive', async function() {
