@@ -21,8 +21,9 @@ Instruction
 1. [Appium](http://appium.io/downloads.html)
 1. [setup node and npm](https://nodejs.org/en/download/)  
 1. Terminal/Shell   
-  1. git clone https://github.com/AntonVTR/CatlulatorTest.git   
-  1. npm install  
-  1. npm test  
+  * ```git clone https://github.com/AntonVTR/CatlulatorTest.git```   
+  * move to folder apk run ```adb install app-debug.apk```
+  * ```npm install```  
+  * ```npm test```  
 ----
 Описание кейсов смотри в папке cases 
