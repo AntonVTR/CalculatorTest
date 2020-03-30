@@ -3,6 +3,11 @@ const { opts } = require('./settings');
 
 var driver;
 
+// MyModule.prototype.someFunction = function(dr) {
+//     this.driver = dr;
+// }
+
+
 async function init() {
     driver = await wdio.remote(opts);
 
@@ -18,34 +23,34 @@ async function init() {
 
 // bad practice, but element.click() and others doesn't work in Android emulator 
 async function tapSum() {
-    driver.touchPerform([
+    await driver.touchPerform([
         { action: 'press', options: { x: 116, y: 236 } },
         { action: 'release' }
     ]);
 }
 async function tapSub() {
-    driver.touchPerform([
+    await driver.touchPerform([
         { action: 'press', options: { x: 258, y: 236 } },
         { action: 'release' }
     ]);
 }
 
 async function tapMult() {
-    driver.touchPerform([
+    await driver.touchPerform([
         { action: 'press', options: { x: 394, y: 236 } },
         { action: 'release' }
     ]);
 }
 
 function tapDiv() {
-    driver.touchPerform([
+    await driver.touchPerform([
         { action: 'press', options: { x: 507, y: 236 } },
         { action: 'release' }
     ]);
 }
 
 function tapRst() {
-    driver.touchPerform([
+    await driver.touchPerform([
         { action: 'press', options: { x: 660, y: 236 } },
         { action: 'release' }
     ]);
@@ -67,16 +72,15 @@ async function validateTextNotEqual(el, text) {
         assert.notEqual(attr, text);
     });
 }
+module.exports.init = init;
+module.exports.tapSum = tapSum;
+module.exports.tapDiv = tapDiv;
+module.exports.tapMult = tapMult;
+module.exports.tapSub = tapSub;
+module.exports.tapRst = tapRst;
+module.exports.setCheckText = setCheckText;
+module.exports.validateText = validateText;
+module.exports.validateTextNotEqual = validateTextNotEqual;
 
-module.exports = init // = init;
-module.exports = tapSum //= tapSum;
-module.exports = tapDiv // = tapDiv;
-module.exports = tapMult // = tapMult;
-module.exports = tapSub // = tapSub;
-module.exports = tapRst // = tapRst;
-module.exports = setCheckText // = setCheckText;
-module.exports = validateText // = validateText;
-exports = validateTextNotEqual // = validateTextNotEqual;
 
-
-//exports.driver //= driver;
+exports.driver = driver;
