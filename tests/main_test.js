@@ -1,25 +1,25 @@
+const wdio = require("webdriverio");
 const assert = require('chai').assert;
-const performance = require('perf_hooks');
-const { fd1, fd2, add, sub, mult, div, rst, res, init, tapRst, tapMult, tapSum, setCheckText, validateText, validateTextNotEqual } = require('./elements');
-var { driver } = require('./elements');
-//var driver;
-//let fd1, fd2, add, sub, mult, div, rst, res;
+const settings = require('./settings');
+
+var driver;
+let fd1, fd2, add, sub, mult, div, rst, res;
 
 describe('Calculator', function() {
 
     this.timeout(50000);
 
     before(async function() {
-        //driver = await wdio.remote(opts);
+        console.log(settings.opts);
+
+        driver = await wdio.remote(settings.opts);
         await init();
-        //var t0 = performance.now();
+
     });
     beforeEach(async function() {
         await tapRst();
     });
     after(async function() {
-        var t1 = performance.now();
-        console.log("Call to Tests took " + (t1 - t0) + " milliseconds.");
         await driver.deleteSession();
 
     });
@@ -31,14 +31,7 @@ describe('Calculator', function() {
         await validateText(rst, 'RESET');
         await validateText(res, '');
     });
-    it('Round up field 1', async function() {
-        await setCheckText(fd1, 3.1453)
-        await validateText(sub, '-');
-        await validateText(mult, '*');
-        await validateText(div, '/');
-        await validateText(rst, 'RESET');
-        await validateText(res, '');
-    });
+
     it('Infinity test', async function() {
         let v = '1111111111111111111111111111111111111111'; //max val+1 bocome infinity
         await setCheckText(fd1, v);
@@ -689,5 +682,65 @@ describe('Calculator', function() {
         await tapRst();
     });
 
+    // bad practice, but element.click() and others doesn't work in Android emulator 
+    async function tapSum() {
+        driver.touchPerform([
+            { action: 'press', options: { x: 116, y: 236 } },
+            { action: 'release' }
+        ]);
+    }
+    async function tapSub() {
+        driver.touchPerform([
+            { action: 'press', options: { x: 258, y: 236 } },
+            { action: 'release' }
+        ]);
+    }
 
+    async function tapMult() {
+        driver.touchPerform([
+            { action: 'press', options: { x: 394, y: 236 } },
+            { action: 'release' }
+        ]);
+    }
+
+    function tapDiv() {
+        driver.touchPerform([
+            { action: 'press', options: { x: 507, y: 236 } },
+            { action: 'release' }
+        ]);
+    }
+
+    function tapRst() {
+        driver.touchPerform([
+            { action: 'press', options: { x: 660, y: 236 } },
+            { action: 'release' }
+        ]);
+    }
+
+    async function setCheckText(el, text) {
+        driver.elementSendKeys(el.ELEMENT, text);
+        await driver.getElementAttribute(el.ELEMENT, 'text').then((attr) => {
+            assert.equal(attr, text);
+        });
+    }
+    async function validateText(el, text) {
+        await driver.getElementAttribute(el.ELEMENT, 'text').then((attr) => {
+            assert.equal(attr, text);
+        });
+    }
+    async function validateTextNotEqual(el, text) {
+        await driver.getElementAttribute(el.ELEMENT, 'text').then((attr) => {
+            assert.notEqual(attr, text);
+        });
+    }
+    async function init() {
+        fd1 = await driver.findElement('accessibility id', 'inputFieldLeft');
+        fd2 = await driver.findElement('accessibility id', 'inputFieldRight');
+        add = await driver.findElement('accessibility id', 'additionButton');
+        sub = await driver.findElement('accessibility id', 'subtractButton');
+        mult = await driver.findElement('accessibility id', 'multiplicationButton');
+        div = await driver.findElement('accessibility id', 'divisionButton');
+        rst = await driver.findElement('accessibility id', 'resetButton');
+        res = await driver.findElement('accessibility id', 'resultTextView');
+    }
 });
